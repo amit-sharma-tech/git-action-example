@@ -1,7 +1,7 @@
 name: 07 - Using Expression
 
 on: 
-    push:
+    # push:
     workflow_dispatch:
         inputs:
             debug:
@@ -10,18 +10,18 @@ on:
 
 jobs:
     echo:
-        runs-on: ubuntu_latest
+        runs-on: ubuntu-latest
         steps:
-            - name: '[debug] print start-up'
-              if: ${{ inputs.debug }}
-              run: |
-                echo "Trigger by : ${{github.event_name}}"
-                echo "Branch : ${{github.ref}}"
-                echo "Commit SHA : ${{github.sha}}"
-                echo "Runner OS : ${{runner.os}}"
-            - name: '[debug] Print When triggered from main'
-              if: ${{inputs.debug && github.ref == 'refs/heads/main'}}
-              run: echo "I was triggered from main"
-            - name: Greeting
-              run: echo "Hello, World"
+        - name: '[debug] Print start-up data'
+          if: inputs.debug
+          run: |
+            echo "Triggered by: ${{ github.event_name }}"
+            echo "Branch: ${{ github.ref }}"
+            echo "Commit SHA: ${{ github.sha }}"
+            echo "Runner OS: ${{ runner.os }}"
+        - name: '[debug] Print when triggered from main'
+          if: inputs.debug && github.ref == 'refs/heads/main'
+          run: echo "I was triggered from main"
+        - name: Greeting
+          run: echo "Hello, world"
                
